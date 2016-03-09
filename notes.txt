@@ -1,0 +1,104 @@
+OMeta notes:
+
+lexer: finds patterns in a stream of chars to produce a stream of tokens;
+parser: maches a stream of tokens against a grammar to produce AST;
+a typechecker: matches an AST to produce annotated ASTS (with types);
+visitors: pattern match ASTs to produce other ASTS;
+code generater: pattern matches on ASTS to produce code;
+
+Parsing Expression Grammars (PEGS);
+
+Basics:
+E E	sequencing
+E | E	prioritized choice
+E*	zero or more repetitions
+E+	One ore more repetitions (not essential)
+(E)	Grouping
+!E	Negation
+&E	look-ahead (not essential)
+r	rule application
+'E' 	match the char E
+
+Examples of OMeta: TileScript, Toylog
+
+simple math peg:
+ometa ExpRecognizer {
+	dig = '0' | ... | '9',
+	num = dig+,
+	fac = fac '*' num
+		| fac '/' num
+		| num,
+	exp = exp '+' fac
+		| exp '-' fac
+		| fac
+}
+
+exp = exp:x '+' fac:y -> ['add', x, y]
+	| exp:x '-' fac:y -> ['sub', x, y]
+	| fac
+
+fac  is equivalent to fac:x -> x
+
+ometa ExpParser {
+	dig = '0' | ... | '9',
+	num = dig+:ds		-> ['num', parseInt(ds.join(''))],
+	fac = fac:x '*' num:y	-> ['mul', x, y]
+		| fac:x '/' num:y -> ['div', x, y]
+		| num,
+	exp - exp:x '+' fac:y -> ['add', x, y]
+		| exp:x '-' fac:y -> ['sub', x, y]
+		| fac
+}
+
+end = ~anything
+
+digit = char:d ?(d >= '0' && d <= '9') -> d
+
+ometa ExpEvaluator {
+	eval = ['num' anything:x]	-> x
+		| ['add' eval:x eval:y]	-> (x + y)
+		| ['sub' eval:x eval:y] -> (x - y)
+		| ['mul' eval:x eval:y] -> (x * y)
+		| ['div' eval:x eval:y] -> (x / y)
+}
+
+ometa ExpTranslator {
+	trans = ['num' anything:x]	-> x.toString()
+		| ['add' eval:x eval:y]	-> ('(' + x + '+' + y + ')')
+		| ['sub' eval:x eval:y]	-> ('(' + x + '-' + y + ')')
+		| ['mul' eval:x eval:y]	-> ('(' + x + '*' + y + ')')
+		| ['div' eval:x eval:y]	-> ('(' + x + '/' + y + ')')
+}
+
+example: ['mul', ['num', 6], ['add', ['num', 4], ['num', 3]]]
+returns 42
+
+ometa Calc <: Parser {
+	var = letter:x,
+	num = num:n digit:d
+		| digiti:d,
+	priExpr = spaces var: x
+		| spaces num:n
+		| "(" expr:r ")",
+	mulExpr = mulExpr:x "*" priExpr:y
+		| mulExpr:x "/" priExpr:y
+		| priExpr,
+	addExpr = addExpr:x "+" mulExpr:y
+		| addExpr:x "-" mulExpr:y
+		| mulExpr,
+	expr = var:x "=" expr:r	-> (self.vars[x] = r)
+		| addExpr,
+	doit = (expr:r)* spaces end -> r
+}
+
+Calc.initialize = function() { this.vars = {}; }
+
+
+ometa OMetaJSParser {
+	topLevel = foreign(OmetaParser, 'grammar')
+		| foreign(JSParser, 'srcElem')
+}
+
+
+AST's look at ANTLR, Stratego/XT, CLANG, bnfc
+
