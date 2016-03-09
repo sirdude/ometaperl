@@ -1,0 +1,12 @@
+-- basic types
+Digit. digit ::= '0' | '1' | '2' | '3' | '4' | '5' | '6'
+Letter. letter ::= upper | lower
+Upper. upper ::= A-Z
+Lower. lower ::= a-z
+
+token Integer digit+
+token Double digit+ '.' digit" ('e' '1'? digit+)?
+token Char ’\’’ ((char - ["’\\"]) | (’\\’ ["’\\nt"])) ’\’’
+token String ’"’ ((char - ["\"\\"]) | (’\\’ ["\"\\nt"]))* ’"’
+token Ident letter (letter | digit | ’_’ | ’\’’)*
+

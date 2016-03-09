@@ -1,0 +1,21 @@
+This is an attempt to create a meta compiler using the syntax from bnfc
+and or OMeta.
+
+The idea is to use a simple perl program bootstrap which can read a basic
+file and create an AST from it.
+
+The next phase will be to create an interpreter that can be rebuild
+from a grammar file.
+
+Then the idea is to write a more advanced version in our new language.
+The perl bootstrap will take the input file and generate an interpreter
+
+Then we can start building it up and experimenting with adding things.
+
+Right now this is just a bunch of unorganized junk.
+lbnf.bnf		bnf for bnfc's grammar
+basic_types.bnf		some defaults that were not included in lbnf.bnf
+calc.om			Ometa simple calculator
+perl6			directory with some perl6 experiments
+bootstrap.pl		Use regex's to read in lbnf.bnf
+doit.sw			Start of a backend in sweet(lpc/pike)
