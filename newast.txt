@@ -8,33 +8,46 @@ bnfc:
 Progr [Afunc (NewFunc [Type Tint] (NoPointer (OldFuncDec (Name (Ident "fun")))) (ScompFour [Declarators [Type Tint] [OnlyDecl (NoPointer (Name (Ident "z")))]] [ExprS (SexprTwo (Eassign (Evar (Ident "x")) Assign (Econst (Eint 5))))]))]
 
 Just looking at "int z; # a var
+we have a declaration and a comment...
+[
+{
+	"token" : "OnlyDecl",
+	"type" : "OnlyDecl",
+	"line" : 1,
+	"column" : 3,
+	"chiidren" : [
+		{
+			"token" : "int",
+			"type" : "Type",
+			"line" : 1,
+			"column" : 3,
+			"chidren" : [ ]
+		},
 
-token: OnlyDecl
-type: OnlyDecl
-line: 1
-column: 3
-chiidren: {
-	token: int
-	type: Type
-	line: 1
-	column: 3
-	chidren: { }
+		{
+			"token" : "z",
+			"type" : "Ident",
+			"line" : 1,
+			"column" : 5,
+			"chidren" : [ ]
+		},
 
-	token: z
-	type: Ident
-	line: 1
-	column: 7
-	chidren: { }
+		{
+			"token" : ";",
+			"type" : "Terminator",
+			"line" : 1,
+			"column" : 6,
+			"chidren" : [ ]
+		}
+	]
+},
 
-	token: ;
-	type: Terminator
-	line: 1
-	column: 8
-	chidren: { }
-
-	token: # a var
-	type: Comment
-	line: 1
-	column:
+{
+	"token" : "# a var",
+	"type" : "Comment",
+	"line" : 1,
+	"column" : 8,
+	"children" : [ ]
 }
+]
 
