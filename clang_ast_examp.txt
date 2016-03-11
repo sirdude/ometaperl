@@ -1,7 +1,7 @@
 $ cat test.cc
 int f(int x) {
   int result = (x / 42);
-  return result;
+  return result; /* test */
 }
 
 # Clang by default is a frontend for many tools; -Xclang is used to pass

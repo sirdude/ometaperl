@@ -15,12 +15,14 @@ we have a declaration and a comment...
 	"type" : "OnlyDecl",
 	"line" : 1,
 	"column" : 3,
+	"file" : "/tmp/test.cc",
 	"chiidren" : [
 		{
 			"token" : "int",
 			"type" : "Type",
 			"line" : 1,
 			"column" : 3,
+			"file" : "/tmp/test.cc",
 			"chidren" : [ ]
 		},
 
@@ -29,6 +31,7 @@ we have a declaration and a comment...
 			"type" : "Ident",
 			"line" : 1,
 			"column" : 5,
+			"file" : "/tmp/test.cc",
 			"chidren" : [ ]
 		},
 
@@ -37,6 +40,7 @@ we have a declaration and a comment...
 			"type" : "Terminator",
 			"line" : 1,
 			"column" : 6,
+			"file" : "/tmp/test.cc",
 			"chidren" : [ ]
 		}
 	]
@@ -47,6 +51,7 @@ we have a declaration and a comment...
 	"type" : "Comment",
 	"line" : 1,
 	"column" : 8,
+	"file" : "/tmp/test.cc",
 	"children" : [ ]
 }
 ]
