@@ -11,15 +11,15 @@ grammar ExploratoryParsing {
         <grammar>+
     }
 
-    token grammar { <comment> | <rule> | <whitespace> | <other_char> }
-    token comment { "--" <!['\n']>* '\n' }
+    token grammar { <comment> | <rrule> | <whitespace> | <other_char> }
+    token comment { ^ '--' .* $ }
 
-    token rule { <label> '.' <key> '::=' <value> ';' }
+    rule rrule { <label> '.' <key> '::=' <value> ';' }
 
     token value { [<![';']> .]+ }
 
-    token label { <alpha>+ ' '* }
-    token key { <alpha>+ ' '* }
+    token label { <alpha>+ }
+    token key { <alpha>+ }
 
     token whitespace { '\n' ' '* }
 
@@ -28,7 +28,7 @@ grammar ExploratoryParsing {
 }
 
 sub MAIN() {
-    my $text = slurp('../perlbnfc/lbnf.bnf');
+    my $text = slurp('../lbnf.bnf');
     say "Read infile, parsing...";
 
     my $match = ExploratoryParsing.parse($text);
