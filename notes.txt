@@ -102,3 +102,23 @@ ometa OMetaJSParser {
 
 AST's look at ANTLR, Stratego/XT, CLANG, bnfc
 
+
+Lexer basics: (Maybe make it jlex commpatable see lex.js example)
+Specify start state
+<STATE> regex {action}
+yybegin(STATE)   action that can jump to state STATE.
+YYINITIAL is the start state.
+
+convert RE's to NFA
+convert NFA to DFA
+minimize DFA
+Use on input stream to reconginze tokens
+try to get largest match you can.
+Rollback:  if you have RE's [aa ba aabb]
+and you get aaba try aabb fail roll back to previous state return aa
+	and then look for ba.
+
+
+
+Look at ometa toylog a natural language front end to prolog.
+look at ometa/cola javascripto
