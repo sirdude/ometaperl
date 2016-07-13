@@ -8,5 +8,5 @@ token Integer digit+
 token Double digit+ '.' digit" ('e' '1'? digit+)?
 token Char ’\’’ ((char - ["’\\"]) | (’\\’ ["’\\nt"])) ’\’’
 token String ’"’ ((char - ["\"\\"]) | (’\\’ ["\"\\nt"]))* ’"’
-token Ident letter (letter | digit | ’_’ | ’\’’)*
+token Ident (letter | '_') (letter | digit | ’_’ )*
 
