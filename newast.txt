@@ -1,14 +1,34 @@
-int fun() {
-   int z; # a var
+# This is a first attempt at trying to define our new AST format...
+# Using JSON(JavaScript Object Notation) lets build a data structure... 
+#
+# Ok so for each node in the tree we want the following:
+#	Name (Token)
+#	Type (What type is Token?)
+#	Filename	(Source file 
+#	Line# 
+#	Column #
+#	Children of this node
+# 
+#  Example code: 
+# int fun() {
+#   int z; # a var
+#
+#   z = 5;
+# }
+#
+# bnfc: results 
+# Progr [Afunc (NewFunc [Type Tint] 
+#		(NoPointer (OldFuncDec (Name (Ident "fun")))) 
+#		(ScompFour [Declarators [Type Tint] 
+#			[OnlyDecl (NoPointer (Name (Ident "z")))]] 
+#
+#			[ExprS (SexprTwo (Eassign (Evar (Ident "x")) Assign 
+#				(Econst (Eint 5))))])
+#		)]
+#
+# Just looking at "int z; # a var
+# we have a declaration and a comment...
 
-   z = 5;
-}
-
-bnfc:
-Progr [Afunc (NewFunc [Type Tint] (NoPointer (OldFuncDec (Name (Ident "fun")))) (ScompFour [Declarators [Type Tint] [OnlyDecl (NoPointer (Name (Ident "z")))]] [ExprS (SexprTwo (Eassign (Evar (Ident "x")) Assign (Econst (Eint 5))))]))]
-
-Just looking at "int z; # a var
-we have a declaration and a comment...
 [
 {
 	"token" : "OnlyDecl",
@@ -16,7 +36,7 @@ we have a declaration and a comment...
 	"line" : 1,
 	"column" : 3,
 	"file" : "/tmp/test.cc",
-	"chiidren" : [
+	"chidren" : [
 		{
 			"token" : "int",
 			"type" : "Type",
